@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 using namespace std;
@@ -12,6 +13,7 @@ int main(){
 	rounded = x * k;
 	rounded = (long int) (rounded+0.5f); 
 	rounded /= k;
+	cout << fixed; //To display the decimal value in non-scientifc form 
 	cout << "Rounded value to the Kth place: " << rounded << endl;
 	
 	return 0;
