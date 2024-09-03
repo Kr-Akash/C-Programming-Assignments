@@ -39,7 +39,8 @@ int find_next_end(char str[], int len, int i) {
 
 void reverse_words(char s[]) { 
 	int len = strlen(s);
-	int ns = 0, ne = 0;
+	int ns = 0, ne = 0; //ns means next_start index, ne means next_end index of any word
+	//loop while ns does not equals to -1, -1 means there is no more next word.
 	while((ns = find_next_start(s, len, ns)) != -1){
 		ne = find_next_end(s, len, ns);
 		reverse_substring(s, ns, ne);
