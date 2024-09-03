@@ -15,5 +15,5 @@ g++ main.cpp revwords.o
 ./a.out
 
 
-The latter way gives more flexibility in modifying the main.cpp and don't need to compile all the other .cpp files again if unmodified as opposed to the former method. 
+The latter way gives more flexibility in modifying the main.cpp and don't need to compile all the other .cpp files again if unmodified (i.e. compile only once) as opposed to the former method where all the .cpp files are getting compiled.
 
