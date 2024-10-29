@@ -30,7 +30,7 @@ class myvector {
 			else{ //deep copy
 				this->p = new int[this->size]; // will point to new block of memory
 				for(int i = 0; i<this->size; ++i)
-					this->p[i] = v.p[i]; //copying the contents of the array v.p[] to the new array this->p[]
+					this->p[i] = v.get(i); //copying the contents of the array v.p[] to the new array this->p[]
 			}
 		}
 		/* return the base pointer to the vector */
