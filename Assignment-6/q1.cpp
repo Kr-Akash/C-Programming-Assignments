@@ -69,7 +69,6 @@ class myvector {
 				this->p[i] = copy.p[i]; 
 			}
 			this->p[this->size-1] = val; //assigning the new value at the end
-			delete copy.p; //deleting the previous array pointed by copy.p pointer, since the contents moved to the new block of memory of size increased by 1 compared to the previous size
 			
 		}
 		~myvector(){
