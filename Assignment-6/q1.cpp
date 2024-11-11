@@ -2,22 +2,33 @@
 
 using namespace std;
 
+struct R{
+    int count;
+    int *p;
+};
+
 class myvector {
-	int *p; // base pointer of the vector
+	//int *p; // base pointer of the vector
 	unsigned int size; // size of the vector
 	bool shallow;
+	struct R *r;
 	//flag indicating whether this is a shallow copy of another myvector
 	public:
 		/*create an empty vector */
 		myvector(){
-			this->p = nullptr;
+			this->r = (struct R*)malloc(sizeof(struct R));
+		    this->r->count =1;
+		    this->r->p = nullptr;
 			this->size = 0;
 			this->shallow = false;//since the newly created myvector objs, will not be copy of any other vector.
 		}
 		/* create a vector of length size initialized to 0 */
 		myvector(unsigned int n){
 			this->size = n;
-			this->p = new int[this->size];
+            this->r = (struct R*)malloc(sizeof(struct R));
+		    this->r->count =1;
+			this->r->p = new int[this->size];
+            
 			this->shallow = false; //all the newly created myvector objs, will not be copy of any other vector.
 		}
 		/*copy constructor. Can be shallow or deep depending on the option */
@@ -25,17 +36,21 @@ class myvector {
 			this->shallow = shallow; //shallow is initialized
 			this->size = v.get_size(); //size is initialized
 			if(this->shallow){
-				this->p = v.get_ptr(); //shallow copy so same address will be pointed
+			    this->r = v.r;
+			    this->r->count +=1;
 			}
 			else{ //deep copy
-				this->p = new int[this->size]; // will point to new block of memory
+                this->r = (struct R*)malloc(sizeof(struct R));
+		        this->r->count = 1;
+				this->r->p = new int[this->size]; // will point to new block of memory
 				for(int i = 0; i<this->size; ++i)
-					this->p[i] = v.get(i); //copying the contents of the array v.p[] to the new array this->p[]
+					this->r->p[i] = v.get(i); //copying the contents of the array v.p[] to the new array this->p[]
+			    
 			}
 		}
 		/* return the base pointer to the vector */
 		int* get_ptr() const{
-			return this->p;
+			return this->r->p;
 		}
 		/* return the size of the vector */
 		constexpr unsigned int get_size() const{
@@ -47,33 +62,40 @@ class myvector {
 		}
 		/*update the element at index i with val*/
 		void update(unsigned int i, int val){
-			this->p[i] = val;
+			this->r->p[i] = val;
 		}
 		/*return the element at index i*/
 		constexpr int get(unsigned int i) const{
-			return this->p[i];
+			return this->r->p[i];
 		}
 		/*print the vector contents in the console */
 		void print() const{
 			for(int i = 0; i<this->size; ++i){
-				cout << this->p[i] << " ";
+				cout << this->r->p[i] << " ";
 			}
 			cout << endl;
 		}
 		/*Expand the vector and insert a new value at the end.*/
 		void push_back(int val){
-			myvector copy(*this); //shallow copy
+			myvector copy(*this, false); //deep copy
 			this->size = this->size+1; //size is increased by 1
-			this->p = new int[this->size]; //newly block of memory will be allocated 
+			delete this->r->p;
+			this->r->p = new int[this->size]; //newly block of memory will be allocated 
 			for(int i = 0; i<this->size-1; ++i){ //copying all the contents of the previous array
-				this->p[i] = copy.p[i]; 
+				this->r->p[i] = copy.r->p[i]; 
 			}
-			this->p[this->size-1] = val; //assigning the new value at the end
-			
+			this->r->p[this->size-1] = val; //assigning the new value at the en
+			cout<< "Push back done" << endl;
 		}
 		~myvector(){
-			if(!this->is_shallow()){ //delete only for the deep copied objects, since shallow copies point to the same array base address.
-				delete this->p;
+			if(r->count == 1){ //delete only for the deep copied objects, since shallow copies point to the same array base address.
+				delete this->r->p;
+				free(this->r);
+				cout << "deleted p\n";
+			}
+			else{
+			    cout << "dec shall " << r->count << endl;
+			    r->count -=1;
 			}
 		}
 };
