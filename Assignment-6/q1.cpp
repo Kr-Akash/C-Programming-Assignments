@@ -94,7 +94,6 @@ class myvector {
 				cout << "deleted p\n";
 			}
 			else{
-			    cout << "dec shall " << r->count << endl;
 			    r->count -=1;
 			}
 		}
