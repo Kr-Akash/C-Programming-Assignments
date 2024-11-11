@@ -25,8 +25,8 @@ class myvector {
 		/* create a vector of length size initialized to 0 */
 		myvector(unsigned int n){
 			this->size = n;
-            this->r = (struct R*)malloc(sizeof(struct R));
-		    this->r->count =1;
+                        this->r = (struct R*)malloc(sizeof(struct R));
+		        this->r->count =1;
 			this->r->p = new int[this->size];
             
 			this->shallow = false; //all the newly created myvector objs, will not be copy of any other vector.
@@ -40,8 +40,8 @@ class myvector {
 			    this->r->count +=1;
 			}
 			else{ //deep copy
-                this->r = (struct R*)malloc(sizeof(struct R));
-		        this->r->count = 1;
+                               this->r = (struct R*)malloc(sizeof(struct R));
+		                this->r->count = 1;
 				this->r->p = new int[this->size]; // will point to new block of memory
 				for(int i = 0; i<this->size; ++i)
 					this->r->p[i] = v.get(i); //copying the contents of the array v.p[] to the new array this->p[]
