@@ -59,5 +59,5 @@ int main()
     cout << "(x * x + i)=" << (x * x + i) << endl;  // for x*x overloaded operator * is called and second parameter is Y type so second x is converted to Y type and the returned result is X type and then returned X + i performed and the final result is of X type
     cout << "f(7) = " << f(7) << endl;              // f(7) is implicitly converted to f(X) and int value is returned
     cout << "f(int(y))= " << f(int(y)) << endl;     // y is explicitly converted to int and then the converted int is explicitly casted to X type
-    cout << "y+y= " << y + y << endl;               // y + y i
-    cout << "106+y= " << 106 + y << endl;
+    cout << "y+y= " << y + y << endl;               // y + y both y are converted to int
+    cout << "106+y= " << 106 + y << endl;           //y is implicitly type casted to int
