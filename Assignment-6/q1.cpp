@@ -17,8 +17,8 @@ class myvector {
 		/*create an empty vector */
 		myvector(){
 			this->r = (struct R*)malloc(sizeof(struct R));
-		    this->r->count =1;
-		    this->r->p = nullptr;
+		        this->r->count =1;
+		        this->r->p = nullptr;
 			this->size = 0;
 			this->shallow = false;//since the newly created myvector objs, will not be copy of any other vector.
 		}
